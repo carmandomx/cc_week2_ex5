@@ -14,26 +14,40 @@
 
 /** DO NOT CHANGE THE FUNCTION NAME **/
 const inventory = (currInven, newInven) => {
+  // forEach to iterate each item on "newInven"
     newInven.forEach(function(item) {
         createOrUpdate(currInven, item);
       });
-      // All inventory must be accounted for or you're fired!
+      // All inventory must be accounted for or you're fired! (I experienced a similar situation at my old job and keeping the inventory up to date was not my responsibility.)
       return currInven;
 }
 
+// The solution on the repo was using a While loop but I feel more confortable with a For loop
+
 function createOrUpdate(arr1, item) {
-    var index = -1;
-    while (++index < arr1.length) {
-      if (arr1[index][1] === item[1]) {
-        arr1[index][0] += item[0];
-        return;
+// Go thru currInven and compare it with the one "item"
+  for (let i = 0; i < arr1.length; i++) {
+
+    // arr1[x][y] to get the "coordinates"
+      if (arr1[i][1] === item[1]) {
+
+          arr1[i][0] += item[0];
+          return;
+      } 
+      else if (arr1[i][1] > item[1]) {
+
+          for (let j = arr1.length - 1; j >= i; j--) {
+              arr1[j + 1] = arr1[j];
+          }
+
+          arr1[i] = item;
+          return;
       }
-      if (arr1[index][1] > item[1]) {
-        break;
-      }
-    }
-    arr1.splice(index, 0, item);
   }
+  // Update the array
+  arr1.push(item);
+
+}
   
 
 
