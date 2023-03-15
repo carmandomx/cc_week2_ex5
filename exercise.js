@@ -22,21 +22,20 @@ const inventory = (currInven, newInven) => {
 }
 
 function createOrUpdate(arr1, item) {
-    var index = -1;
-    while (++index < arr1.length) {
-      if (arr1[index][1] === item[1]) {
-        arr1[index][0] += item[0];
-        return;
-      }
-      if (arr1[index][1] > item[1]) {
-        break;
-      }
+   for (let i = 0; i < arr1.length; i++) {//let's find all elements of the array
+    if (arr1[i][1] == item[1]) {//compare if the new inventory has elements that alredy exist
+      arr1[i][0] += item[0];//if its exist then sum the new quantity of elements
+      return;
     }
-    arr1.splice(index, 0, item);
-  }
-  
-
-
-
-/** DO NOT CHANGE THE LINE BELOW **/
+    else if (arr1[i][1] > item[1]) {// this will sort the elements by alphabetical order
+      for (let j = arr1.length - 1; j >= i; j--){
+        arr1[j + 1] = arr1[j];
+      }
+      arr1[i] = item
+      return;
+    }
+   }
+   arr1.push(item)//add the item to the updated inventory
+}
+/*+O NOT CHANGE THE LINE BELOW **/
 module.exports.inventory = inventory;
