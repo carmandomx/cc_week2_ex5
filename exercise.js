@@ -14,26 +14,26 @@
 
 /** DO NOT CHANGE THE FUNCTION NAME **/
 const inventory = (currInven, newInven) => {
-    newInven.forEach(function(item) {
-        createOrUpdate(currInven, item);
-      });
-      // All inventory must be accounted for or you're fired!
-      return currInven;
-}
+  const len_currinv=currInven.length
+  if (len_currinv===0){ //line for the case with empty current inventory
+      return newInven.sort((a,b) => a[1].localeCompare(b[1]))
+  } else{
+  newInven.forEach(new_inven => {
 
-function createOrUpdate(arr1, item) {
-    var index = -1;
-    while (++index < arr1.length) {
-      if (arr1[index][1] === item[1]) {
-        arr1[index][0] += item[0];
-        return;
+      for (let i=0;i<len_currinv;i++){
+          if (currInven[i][1]===new_inven[1]) {
+              currInven[i][0]=currInven[i][0]+new_inven[0]
+              break
+          }
+          if (i===len_currinv-1){
+              currInven.push(new_inven)
+          }
       }
-      if (arr1[index][1] > item[1]) {
-        break;
-      }
-    }
-    arr1.splice(index, 0, item);
-  }
+  })}
+
+
+    // All inventory must be accounted for or you're fired!
+  return currInven.sort((a,b) => a[1].localeCompare(b[1]))}
   
 
 
